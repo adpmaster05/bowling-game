@@ -31,10 +31,19 @@ public class TenPinParser implements FileParser {
     private int lineCounter = 0;
     private List<PlayerEntry> mappedResults = null;
 
+    /**
+     * Constructor to initialize with Line Separator
+     * @param separator
+     */
     public TenPinParser(String separator) {
         this.separator = separator;
     }
 
+    /**
+     * Parse Game file and throws InvalidFileFormatException is the file has not the valid format
+     * @param s
+     * @return List of PlayerEntry
+     */
     @Override
     public List<PlayerEntry> parse(String s) {
 
@@ -115,6 +124,11 @@ public class TenPinParser implements FileParser {
         return Integer.parseInt(score);
     }
 
+    /**
+     * Throws InvalidFileFormatException if file has not valid format
+     * @param line
+     * @return Array of String where position 0 is the name of the player and position 1 is the score of that Roll/Pinfall
+     */
     public String[] getInputValues(String line) {
         String[] splitted = line.split(separator);
         String name = splitted[0];

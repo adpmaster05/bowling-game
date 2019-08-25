@@ -17,6 +17,10 @@ import java.util.List;
  */
 public class GameScoresDisplayer {
 
+    /**
+     * Print out the score of each player
+     * @param entries
+     */
     public static final void displayScores(List<PlayerEntry> entries) {
 
         for (PlayerEntry entry : entries) {

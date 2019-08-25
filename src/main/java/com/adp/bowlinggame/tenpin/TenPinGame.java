@@ -24,6 +24,10 @@ public final class TenPinGame implements BowlingGame {
     private final String file;
     private TenPinParser parser;
 
+    /**
+     * Constructor which receives a file path, if file doesn't exist it will throw a FileSystemNotFoundException
+     * @param file
+     */
     public TenPinGame(String file) {
         this.file = file;
         
@@ -34,6 +38,9 @@ public final class TenPinGame implements BowlingGame {
         parser = new TenPinParser(LineSeparator.TAB);
     }
     
+    /**
+     * Starts the Game by parsing and displaying once file it's parsed
+     */
     public void start() {
         List<PlayerEntry> entries = parser.parse(file);
         

@@ -10,9 +10,7 @@ import com.adp.bowlinggame.tenpin.util.parser.impl.TenPinParser;
 import com.adp.bowlinggame.util.LineSeparator;
 import com.adp.bowlinggame.util.parser.FileParser;
 import java.nio.file.FileSystemNotFoundException;
-import org.junit.jupiter.api.AfterAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,14 +21,6 @@ import org.junit.jupiter.api.Test;
 public class TenPinGameIntegrationTest {
     
     public TenPinGameIntegrationTest() {
-    }
-    
-    @BeforeAll
-    public static void setUp() {
-    }
-    
-    @AfterAll
-    public static void tearDown() {
     }
     
     @DisplayName("FileDoesNotExist")

@@ -23,11 +23,20 @@ public class TenPinFrame implements Frame {
     private Frame prevFrame;
     private int score;
 
+    /**
+     * Constructor to initialize with Frame #
+     * @param num
+     */
     public TenPinFrame(int num) {
         validateNumberOfFrames();
         this.num = num;
     }
 
+    /**
+     * Constructor to initialize with Frame # and firstRoll
+     * @param num
+     * @param firstRoll
+     */
     public TenPinFrame(int num, int firstRoll) {
         validateNumberOfFrames();
         this.num = num;
@@ -95,11 +104,19 @@ public class TenPinFrame implements Frame {
         this.extraRoll = extraRoll;
     }
 
+    /**
+     *
+     * @return true if the number of this Frame is equals to 10
+     */
     @Override
     public boolean isLast() {
         return num == 10;
     }
 
+    /**
+     *
+     * @return the calculated score of this Frame, if Game is not complete this method will throw GameIncompletedException
+     */
     @Override
     public int getScore() {
         if (getFirstRoll() == null || getSecondRoll() == null) {

@@ -8,7 +8,6 @@ package com.adp.bowlinggame.tenpin;
 import com.adp.bowlinggame.core.InvalidFileFormatException;
 import com.adp.bowlinggame.tenpin.util.parser.impl.TenPinParser;
 import com.adp.bowlinggame.util.LineSeparator;
-import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.DisplayName;
