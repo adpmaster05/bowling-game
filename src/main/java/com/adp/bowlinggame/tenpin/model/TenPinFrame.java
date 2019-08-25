@@ -135,7 +135,7 @@ public class TenPinFrame implements Frame {
                 score = getFirstRoll() + getSecondRoll();
             }
         } else {
-            if (getNextFrame() == null) {
+            if (getNextFrame() == null || getNextFrame().getFirstRoll() == null) {
                 throw new GameInCompletedException();
             }
             if (isStrike()) {
