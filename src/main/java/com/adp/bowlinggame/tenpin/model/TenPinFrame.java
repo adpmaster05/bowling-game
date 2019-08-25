@@ -5,6 +5,8 @@
  */
 package com.adp.bowlinggame.tenpin.model;
 
+import com.adp.bowlinggame.core.ExceedLimitException;
+import com.adp.bowlinggame.core.GameInCompletedException;
 import com.adp.bowlinggame.model.Frame;
 
 /**
@@ -101,14 +103,14 @@ public class TenPinFrame implements Frame {
     @Override
     public int getScore() {
         if (getFirstRoll() == null || getSecondRoll() == null) {
-            throw new RuntimeException("Game is not completed yet. Stopped in Frame#: " + getNum());
+            throw new GameInCompletedException();
         }
 
         if (isLast()) {
             if (isStrike() || isSpare()) {
                 
                 if (getExtraRoll() == null) {
-                    throw new RuntimeException("\nMissing Extra Roll. Game is not completed yet. Stopped in Frame#: " + getNum());
+                    throw new GameInCompletedException("Missing Extra Roll. Game is not completed yet.");
                 }
                 
                 score = getFirstRoll() + getSecondRoll() + getExtraRoll();
@@ -117,7 +119,7 @@ public class TenPinFrame implements Frame {
             }
         } else {
             if (getNextFrame() == null) {
-                throw new RuntimeException("Game is not completed yet. Stopped in Frame#: " + getNum());
+                throw new GameInCompletedException();
             }
             if (isStrike()) {
                 if (getNextFrame().isStrike()) {
@@ -141,7 +143,7 @@ public class TenPinFrame implements Frame {
 
     private void validateNumberOfFrames() {
         if (num > 10) {
-            throw new RuntimeException("Can't have  than 10 Frames for TenPinGame");
+            throw new ExceedLimitException("Can't have more than 10 Frames for TenPinGame");
         }
     }
 

@@ -5,6 +5,7 @@
  */
 package com.adp.bowlinggame.tenpin.util.parser.impl;
 
+import com.adp.bowlinggame.core.InvalidFileFormatException;
 import com.adp.bowlinggame.model.Frame;
 import com.adp.bowlinggame.model.Player;
 import com.adp.bowlinggame.model.PlayerEntry;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 import com.adp.bowlinggame.util.parser.FileParser;
+import java.nio.file.FileSystemNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +46,7 @@ public class TenPinParser implements FileParser {
 
                 lineCounter++;
 
-                String[] splitted = getInputValues(lineCounter, line);
+                String[] splitted = getInputValues(line);
                 String player = splitted[0];
                 int score = parseInt(splitted[1]);
 
@@ -52,7 +54,7 @@ public class TenPinParser implements FileParser {
                     Frame f = map.get(player);
 
                     if(f.isLast() && f.getExtraRoll() != null){
-                        throw new RuntimeException("Invalid file format in line " + lineCounter);
+                        throw new InvalidFileFormatException(lineCounter);
                     }
                     else if (f.isLast() && (f.isStrike() || f.isSpare()) && f.getSecondRoll() != null) {
                         f.setExtraRoll(score);
@@ -70,7 +72,7 @@ public class TenPinParser implements FileParser {
                             createNextFrame(f, map, player);
                         }
                     } else {
-                        throw new RuntimeException("Invalid file format in line " + lineCounter);
+                        throw new InvalidFileFormatException(lineCounter);
                     }
 
                 } else {
@@ -92,10 +94,12 @@ public class TenPinParser implements FileParser {
                 }
             });
 
+        } catch(InvalidFileFormatException ex) {
+            throw ex;
         } catch (IOException ex) {
-            throw new RuntimeException("File is not valid", ex);
+            throw new FileSystemNotFoundException();
         } catch (Exception ex) {
-            throw new RuntimeException("File is not valid in line " + lineCounter, ex);
+            throw new InvalidFileFormatException();
         }
 
         return mappedResults;
@@ -111,17 +115,17 @@ public class TenPinParser implements FileParser {
         return Integer.parseInt(score);
     }
 
-    private String[] getInputValues(int lineNum, String line) {
+    public String[] getInputValues(String line) {
         String[] splitted = line.split(separator);
         String name = splitted[0];
         String score = null;
 
         if (name == null || name.trim().isEmpty()) {
-            throw new RuntimeException("Name is not valid in line " + lineNum);
+            throw new InvalidFileFormatException(lineCounter);
         }
 
         if (splitted[1] == null || splitted[1].trim().isEmpty()) {
-            throw new RuntimeException("Score is not valid in line " + lineNum);
+            throw new InvalidFileFormatException(lineCounter);
         }
 
         else if ("10".equals(splitted[1])) {
@@ -134,7 +138,7 @@ public class TenPinParser implements FileParser {
         }
 
         if (score == null) {
-            throw new RuntimeException("Score is not valid in line " + lineNum);
+            throw new InvalidFileFormatException(lineCounter);
         }
 
         return splitted;

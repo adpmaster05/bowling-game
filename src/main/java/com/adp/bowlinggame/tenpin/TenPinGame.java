@@ -6,12 +6,11 @@
 package com.adp.bowlinggame.tenpin;
 
 import com.adp.bowlinggame.model.BowlingGame;
-import com.adp.bowlinggame.model.Frame;
-import com.adp.bowlinggame.model.Player;
 import com.adp.bowlinggame.model.PlayerEntry;
 import com.adp.bowlinggame.tenpin.util.parser.impl.TenPinParser;
 import com.adp.bowlinggame.util.GameScoresDisplayer;
 import com.adp.bowlinggame.util.LineSeparator;
+import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -29,15 +28,10 @@ public final class TenPinGame implements BowlingGame {
         this.file = file;
         
         if(!Files.exists(Paths.get(file))) {
-            throw new RuntimeException("File does not exist");
+            throw new FileSystemNotFoundException("File does not exist");
         }
         
         parser = new TenPinParser(LineSeparator.TAB);
-    }
-    
-    @Override
-    public int getNumbersOfFrames() {
-        return 10;
     }
     
     public void start() {

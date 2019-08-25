@@ -14,7 +14,6 @@ import java.util.Scanner;
  */
 public class Application {
 
-    // /home/alison/Documents/tenpinsbowling-valid.txt
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);

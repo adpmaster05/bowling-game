@@ -10,5 +10,4 @@ package com.adp.bowlinggame.model;
  * @author alison
  */
 public interface BowlingGame {
-    int getNumbersOfFrames();
 }
