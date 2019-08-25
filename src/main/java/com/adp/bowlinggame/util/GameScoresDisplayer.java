@@ -37,7 +37,7 @@ public class GameScoresDisplayer {
             System.out.print("\nPinfalls");
             
             do {
-                System.out.printf("\t %s %s %s", f.getFirstRoll(), f.getSecondRoll(), f.getExtraRoll() != null ? f.getExtraRoll() : "");
+                System.out.printf("\t %s %s %s", firstRollOutput(f), secondRollOutput(f), extraRoolOutput(f));
                 
                 p.setScore(p.getScore() + f.getScore());
                 scores.add(p.getScore());
@@ -49,5 +49,28 @@ public class GameScoresDisplayer {
                 System.out.printf("\t %d", score);
             }
         }
+    }
+    
+    private static String firstRollOutput(Frame f) {
+        if(f.isLast() && f.isStrike()) return "X"; 
+        return f.isStrike() ? "" : f.getFirstRoll().toString();
+    }
+    
+    private static String secondRollOutput(Frame f) {
+        Integer second = f.getSecondRoll();
+        if(f.isLast() && f.isStrike() && second == 10) return "X";
+        else if(f.isLast() && !f.isStrike()) return second.toString();
+        else if(!f.isLast() && f.isStrike()) return "X";
+        else if(!f.isLast() && f.isSpare() ) return "/";
+        return second.toString();
+    }
+    
+    private static String extraRoolOutput(Frame f) {
+        Integer extraRoll = f.getExtraRoll();
+        
+        if(f.isLast() && f.isStrike() && f.getSecondRoll() != null && "X".equals(secondRollOutput(f)) && extraRoll == 10)
+            return "X";
+        
+        return extraRoll != null ? extraRoll.toString() : "";
     }
 }
