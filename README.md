@@ -14,3 +14,14 @@ To run this code you can do it in two ways. It is required to have maven 3+ inst
   2. Clone this repository with the following command: git clone https://github.com/adpmaster05/bowling-game.git
   3. type cd bowling-game
   4. run following maven command: mvn package exec:java
+
+Once it's running it will print out -> Insert a file path: 
+
+Then you can use one of the following included files to test:
+
+* valid-two-players-game.txt
+* perfect-game.txt
+* zero-score-game.txt
+* fouls-score-game.txt
+* invalid-format.txt
+* incomplete-game.txt
